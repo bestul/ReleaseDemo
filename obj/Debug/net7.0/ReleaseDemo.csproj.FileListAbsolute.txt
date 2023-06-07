@@ -1,0 +1,15 @@
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\bin\Debug\net7.0\ReleaseDemo.exe
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\bin\Debug\net7.0\ReleaseDemo.deps.json
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\bin\Debug\net7.0\ReleaseDemo.runtimeconfig.json
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\bin\Debug\net7.0\ReleaseDemo.dll
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\bin\Debug\net7.0\ReleaseDemo.pdb
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.csproj.AssemblyReference.cache
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.AssemblyInfoInputs.cache
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.AssemblyInfo.cs
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.csproj.CoreCompileInputs.cache
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.dll
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\refint\ReleaseDemo.dll
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.pdb
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ReleaseDemo.genruntimeconfig.cache
+C:\Users\AndreasBestul\source\repos\ReleaseDemo\obj\Debug\net7.0\ref\ReleaseDemo.dll
