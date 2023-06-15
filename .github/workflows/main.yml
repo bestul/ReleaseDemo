@@ -3,7 +3,7 @@ name: Build and Publish
 on:
   push:
     tags:
-      - '*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
       
 jobs:
   build-and-publish:
@@ -18,12 +18,6 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Build and Publish for Linux
-        run: |
-          dotnet publish -c Release -r linux-x64 --self-contained true --no-restore --exclude-source-files --exclude appsettings.Development.json
-          mkdir -p artifacts/linux-x64
-          mv ./bin/Release/net6.0/linux-x64/publish/* ./artifacts/linux-x64/
-
       - name: Build and Publish for Windows
         run: |
           dotnet publish -c Release -r win-x64 --self-contained true --no-restore --exclude-source-files --exclude appsettings.Development.json
@@ -36,12 +30,6 @@ jobs:
           npm install -g conventional-changelog-cli
           conventional-changelog -p angular -i CHANGELOG.md -s -r 0
           echo "::set-output name=release_notes::$(cat CHANGELOG.md)"
-
-      - name: Upload Linux artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: linux-x64
-          path: ./artifacts/linux-x64
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v2
