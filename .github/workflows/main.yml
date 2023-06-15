@@ -20,7 +20,7 @@ jobs:
 
       - name: Build and Publish for Windows
         run: |
-          dotnet publish -c Release -r win-x64 --self-contained true --no-restore --exclude-source-files --exclude appsettings.Development.json
+          dotnet publish -c Release -r win-x64 --self-contained true --no-restore -exclude appsettings.Development.json
           mkdir -p artifacts/win-x64
           mv ./bin/Release/net6.0/win-x64/publish/* ./artifacts/win-x64/
 
