@@ -6,9 +6,9 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       
 jobs:
-  Create artifacts:
+  create-artifacts:
+    name: Create artifacts
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,7 +24,8 @@ jobs:
           dotnet build --configuration Release --no-restore
           dotnet publish -c Release -r win-x64 --self-contained --no-restore -o artifacts/win-x64
 
-  Create release:
+  create-release:
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
