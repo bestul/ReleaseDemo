@@ -35,6 +35,9 @@ jobs:
       #   with:
       #     github-token: ${{ secrets.github_token }}
       #     output-file: "false"
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
 
       - name: Create Release
         id: create_release
@@ -46,6 +49,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+          body: ${{steps.build_changelog.outputs.changelog}}
 
       - name: Upload Release Asset
         id: upload-release-asset-1 
