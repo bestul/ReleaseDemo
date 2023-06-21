@@ -6,7 +6,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       
 jobs:
-  build-and-publish:
+  Create artifacts:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,24 +24,20 @@ jobs:
           dotnet build --configuration Release --no-restore
           dotnet publish -c Release -r win-x64 --self-contained --no-restore -o artifacts/win-x64
 
-      - name: Generate Release Notes
-        id: release_notes
-        run: |
-          npm install -g conventional-changelog-cli
-          conventional-changelog -p angular -i CHANGELOG.md -s -r 0
-          echo "::set-output name=release_notes::$(cat CHANGELOG.md)"
-
+  Create release:
+    runs-on: ubuntu-latest
+    steps:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-
-      - name: Upload Windows artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: win-x64
-          path: ./artifacts/win-x64
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
