@@ -18,31 +18,16 @@ jobs:
         with:
           dotnet-version: '7.0.x'
 
-      - name: Build and Publish for Windows
-        run: |
-          dotnet restore
-          dotnet build --configuration Release --no-restore
-          dotnet publish -c Release -r win-x64 --self-contained --no-restore -o artifacts/win-x64
+      - name: Restore dependencies
+        run: dotnet restore
 
-      # - name: Upload Windows artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: win-x64
-      #     path: ./artifacts/win-x64
-
-  create-release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # - name: Conventional Changelog Action
-      #   id: release_notes
-      #   uses: TriPSs/conventional-changelog-action@v3
-      #   with:
-      #     github-token: ${{ secrets.github_token }}
-
+      - name: Publish Windows x64
+        run: dotnet publish --runtime win-x64 -p:PublishSingleFile=true --self-contained true -o ./bin/Release/${{ github.ref }}/EaseeOnboard-${{ github.ref }}-win-x64 -c Release
+      - name: Publish Linux x64
+        run: dotnet publish --runtime linux-x64 -p:PublishSingleFile=true --self-contained true -o ./bin/Release/${{ github.ref }}/EaseeOnboard-${{ github.ref }}-linux-x64 -c Release
+      - name: zip files
+        run: zip -r EaseeOnboard-${{ github.ref }}-win-x64.zip ./bin/Release/${{ github.ref }}/EaseeOnboard-${{ github.ref }}-win-x64 && zip -r EaseeOnboard-${{ github.ref }}-linux-x64.zip ./bin/Release/${{ github.ref }}/EaseeOnboard-${{ github.ref }}-linux-x64
+      
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -51,14 +36,27 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: hello world
-          # body: ${{ steps.release_notes.outputs.clean_changelog }}
+          draft: false
+          prerelease: false
 
-      - name: Upload release asset
+      - name: Upload Release Asset
+        id: upload-release-asset-1 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/win-x64
-          asset_name: win-x64
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./EaseeOnboard-${{ github.ref }}-win-x64.zip
+          asset_name: EaseeOnboard-${{ github.ref }}-win-x64.zip
+          asset_content_type: application/zip
+
+        - name: Upload Release Asset
+        id: upload-release-asset-2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./EaseeOnboard-${{ github.ref }}-linux-x64.zip
+          asset_name: EaseeOnboard-${{ github.ref }}-linux-x64.zip
+          asset_content_type: application/zip
