@@ -34,6 +34,9 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Conventional Changelog Action
         id: release_notes
         uses: TriPSs/conventional-changelog-action@v3
@@ -48,7 +51,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: ${{ steps.release_notes.outputs.release_notes }}
+          body: ${{ steps.release_notes.outputs.clean_changelog }}
 
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
