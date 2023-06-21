@@ -34,7 +34,7 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-     - name: Generate Release Notes
+      - name: Generate Release Notes
         id: release_notes
         run: |
           npm install -g conventional-changelog-cli
