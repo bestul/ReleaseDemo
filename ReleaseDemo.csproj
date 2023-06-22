@@ -8,4 +8,8 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
+<ItemGroup>
+  <None Include="appsettings.Development.json" CopyToPublishDirectory="Never" />
+</ItemGroup>
+
 </Project>
