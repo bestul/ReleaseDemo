@@ -27,7 +27,7 @@ jobs:
       - name: Publish Linux x64
         run: dotnet publish --runtime linux-x64 --self-contained true -o ./EaseeOnboard-${{ github.ref_name }}-linux-x64 -c Release -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true
       - name: zip files
-        run: zip -r EaseeOnboard-${{ github.ref_name }}-win-x64.zip ./EaseeOnboard-${{ github.ref_name }}-win-x64 && zip -r EaseeOnboard-${{ github.ref_name }}-linux-x64.zip ./EaseeOnboard-${{ github.ref_name }}-linux-x64
+        run: zip -r -j EaseeOnboard-${{ github.ref_name }}-win-x64.zip ./EaseeOnboard-${{ github.ref_name }}-win-x64 && zip -r EaseeOnboard-${{ github.ref_name }}-linux-x64.zip ./EaseeOnboard-${{ github.ref_name }}-linux-x64
       
       - name: "Build Changelog"
         id: build_changelog
