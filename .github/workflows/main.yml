@@ -14,8 +14,8 @@ jobs:
       - name: Create version number
         run: |
           TAG=${GITHUB_REF/refs\/tags\/v/}
-          IS_MAIN=${{ github.ref == 'refs/heads/main' }}
-          VARIABLE="${TAG}${{ if ne(IS_MAIN, 'true') }}-beta{{ endif }}"
+          IS_MAIN=${{ env.GITHUB_REF == 'refs/heads/main' }}
+          VARIABLE="${TAG}${{ env.IS_MAIN != 'true' && '-beta' || '' }}"
           echo "VARIABLE=${VARIABLE}" >> $GITHUB_ENV
           
       - name: Checkout code
