@@ -15,7 +15,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Print version
-        run: echo "${env.VERSION}"
+        run: echo "${VERSION}"
 
       - name: Checkout code
         uses: actions/checkout@v3
