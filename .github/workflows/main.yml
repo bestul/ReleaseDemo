@@ -11,13 +11,12 @@ jobs:
     name: Release app
     runs-on: ubuntu-latest
     steps:
-      - name: Create version number
-        run: |
-          TAG=${GITHUB_REF/refs\/tags\/v/}
-          IS_MAIN=${{ env.GITHUB_REF == 'refs/heads/main' }}
-          VARIABLE="${TAG}${{ env.IS_MAIN != 'true' && '-beta' || '' }}"
-          echo "VARIABLE=${VARIABLE}" >> $GITHUB_ENV
-          
+      - name: Extract version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Print version
+        run: echo "{$env.VERSION}"
+
       - name: Checkout code
         uses: actions/checkout@v3
 
